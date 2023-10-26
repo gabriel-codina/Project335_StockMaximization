@@ -21,10 +21,19 @@ def main():
 
 def dynamic_opt_stocks(stock_list, max_budget):
   #using a dynamic algorithm to find the best combination of stocks
-  
-  return None
+  solution=[]
+  #evaluate stock value and add it as a third item
+  for stock in stock_list:
+    stock.append(stock[0]/stock[1])
+  #while their is items in our list and we still have a budget get the highest value stock option
+  while stock_list and max_budget > 0:
+    best_val_option=max(stock_list, key=lambda x: x[2])#get highest value set
+    if best_val_option[1]<=max_budget:
+      solution.append([best_val_option[0],best_val_option[1]])
+      max_budget-=best_val_option[1]
+    stock_list.remove(best_val_option)
+  return solution
 
-#probably wont need
 def total_stocks(candidate):
   #get the total number of stocks in the candidate
   total=0
