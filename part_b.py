@@ -66,6 +66,5 @@ def write_to_output(results):
       output_b.write(str(i) + "\n")
 
 
-
 if __name__ == "__main__":
   main()

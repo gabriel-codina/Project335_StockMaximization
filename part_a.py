@@ -21,7 +21,7 @@ def main():
       result = total_stocks(exhaustive_opt_stocks(stock_list,max_budget))
       print(result)
       results.append(result)
-  write_to_output(results)
+    write_to_output(results)
 
 def exhaustive_opt_stocks(stock_list, max_budget):
   #using exhaustive optimization algorithm to find the best combination of stocks
