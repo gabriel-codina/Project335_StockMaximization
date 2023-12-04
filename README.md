@@ -1,5 +1,5 @@
 # Project335_StockMaximization
-Basic ReadMe
+These program for finding the maximize the number of stocks an investor may purchase, given a limited amount of available financial resources.
 
 ## Member
 
