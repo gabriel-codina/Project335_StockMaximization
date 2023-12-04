@@ -17,8 +17,9 @@ def main():
     elif line_count==2:
       line_count=0
       max_budget=int(x)
-      print(total_stocks(dynamic_opt_stocks(stock_list,max_budget)))
+      print(dynamic_opt_stocks2(stock_list,max_budget))
 
+''' Old Code
 def dynamic_opt_stocks(stock_list, max_budget):
   #using a dynamic algorithm to find the best combination of stocks
   solution=[]
@@ -33,6 +34,20 @@ def dynamic_opt_stocks(stock_list, max_budget):
       max_budget-=best_val_option[1]
     stock_list.remove(best_val_option)
   return solution
+'''
+
+def dynamic_opt_stocks2(stock_list, max_budget):
+  n=len(stock_list)
+  S = [[0 for x in range(max_budget+1)] for x in range(n+1)]
+  for i in range (0, n+1):
+    for w in range (0, max_budget+1):
+      if i==0 or w==0:
+        S[i][w]=0
+      elif stock_list[i-1][1]<=w: 
+        S[i][w] = max(stock_list[i-1][0]+S[i-1][w-stock_list[i-1][1]], S[i-1][w])
+      else:
+        S[i][w]=S[i-1][w]
+  return S[n][max_budget]
 
 def total_stocks(candidate):
   #get the total number of stocks in the candidate
