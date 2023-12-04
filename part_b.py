@@ -7,6 +7,7 @@ def main():
   stock_list=[]
   
   f = open("input_project2.txt", "r")
+  results = []
   for x in f:
     #split input in 3 lines(# of stocks, stock_list, and max_budget)
     if line_count==0 and x.strip().isdigit():
@@ -17,7 +18,10 @@ def main():
     elif line_count==2:
       line_count=0
       max_budget=int(x)
-      print(dynamic_opt_stocks2(stock_list,max_budget))
+      result = dynamic_opt_stocks2(stock_list,max_budget)
+      print(result)
+      results.append(result)
+    write_to_output(results)
 
 ''' Old Code
 def dynamic_opt_stocks(stock_list, max_budget):
@@ -55,6 +59,11 @@ def total_stocks(candidate):
   for item in candidate:
     total+=item[0]
   return total
+
+def write_to_output(results):
+  with open("output_b.txt", "w") as output_b:
+    for i in results:
+      output_b.write(str(i) + "\n")
 
 
 

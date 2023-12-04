@@ -7,6 +7,7 @@ def main():
   stock_list=[]
   
   f = open("input_project2.txt", "r")
+  results = []
   for x in f:
     #split input in 3 lines(# of stocks, stock_list, and max_budget)
     if line_count==0 and x.strip().isdigit():
@@ -17,7 +18,10 @@ def main():
     elif line_count==2:
       line_count=0
       max_budget=int(x)
-      print(total_stocks(exhaustive_opt_stocks(stock_list,max_budget)))
+      result = total_stocks(exhaustive_opt_stocks(stock_list,max_budget))
+      print(result)
+      results.append(result)
+  write_to_output(results)
 
 def exhaustive_opt_stocks(stock_list, max_budget):
   #using exhaustive optimization algorithm to find the best combination of stocks
@@ -50,6 +54,11 @@ def combos(stock_list):
   for i in range(len(stock_list)):
     combos.extend(list(itertools.combinations(stock_list,i+1)))
   return combos
+
+def write_to_output(results):
+  with open("output_a.txt", "w") as output_a:
+    for i in results:
+      output_a.write(str(i) + "\n")
 
 if __name__ == "__main__":
   main()
