@@ -18,32 +18,24 @@ def main():
     elif line_count==2:
       line_count=0
       max_budget=int(x)
-      result = total_stocks(dynamic_opt_stocks(stock_list,max_budget))
+      result = dynamic_opt_stocks(stock_list,max_budget)
       print(result)
       results.append(result)
     write_to_output(results)
 
-
 def dynamic_opt_stocks(stock_list, max_budget):
-    #using a dynamic algorithm to find the best combination of stocks
-    n = len(stock_list)
-    dp = [[0] * (max_budget + 1) for _ in range(n + 1)]
-
-    for i in range(1, n + 1):
-        for j in range(max_budget + 1):
-            dp[i][j] = dp[i - 1][j]
-            if stock_list[i - 1][1] <= j:
-                dp[i][j] = max(dp[i][j], dp[i - 1][j - stock_list[i - 1][1]] + stock_list[i - 1][0])
-
-    # finding the optimal combination of stocks through backtracking
-    solution = []
-    while n and max_budget > 0:
-        if dp[n][max_budget] != dp[n - 1][max_budget]:
-            solution.append(stock_list[n - 1])
-            max_budget -= stock_list[n - 1][1]
-        n -= 1
-
-    return solution
+  #using a dynamic algorithm to find the best combination of stocks
+  n=len(stock_list)
+  S = [[0 for x in range(max_budget+1)] for x in range(n+1)]
+  for i in range (0, n+1):
+    for w in range (0, max_budget+1):
+      if i==0 or w==0:
+        S[i][w]=0
+      elif stock_list[i-1][1]<=w: 
+        S[i][w] = max(stock_list[i-1][0]+S[i-1][w-stock_list[i-1][1]], S[i-1][w])
+      else:
+        S[i][w]=S[i-1][w]
+  return S[n][max_budget]
 
 
 def total_stocks(candidate):
